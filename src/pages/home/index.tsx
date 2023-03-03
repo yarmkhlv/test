@@ -1,3 +1,7 @@
 export function Home() {
-  return <div />;
+  return (
+    <div>
+      <p className="font-bold underline">taks</p>
+    </div>
+  );
 }
