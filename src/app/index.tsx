@@ -1,11 +1,18 @@
-import React from "react";
-import "./App.css";
+import { useEthers } from '@usedapp/core';
+
+import { ConnectButton } from 'components/connect_button';
+
+import './index.css';
 
 function App() {
+  const { account } = useEthers();
   return (
     <div className="App">
-      <header></header>
-      <main></main>
+      <header />
+      <main>
+        <ConnectButton />
+        <div>{account}</div>
+      </main>
     </div>
   );
 }
