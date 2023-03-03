@@ -1,4 +1,7 @@
-/* .App {
+.App {
   margin: 0 auto;
   max-width: 1440px;
-} */
+  background: #171719;
+  min-height: 100vh;
+  color: white;
+}

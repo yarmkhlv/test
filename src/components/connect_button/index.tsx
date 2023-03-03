@@ -20,8 +20,12 @@ export function ConnectButton() {
         Disconnect
       </button>
     ) : (
-      <button onClick={() => activateBrowserWallet()} type="button">
-        Connect
+      <button
+        onClick={() => activateBrowserWallet()}
+        type="button"
+        className="px-6 pt-2.5 pb-2 mt-4 rounded-3xl bg-bgDefaultBtn text-lg uppercase"
+      >
+        Connect MetaMask
       </button>
     )
   ) : (
