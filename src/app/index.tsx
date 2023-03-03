@@ -1,18 +1,19 @@
-import { useEthers } from '@usedapp/core';
+import { Routes, Route } from 'react-router-dom';
 
-import { ConnectButton } from 'components/connect_button';
+import { Header } from 'components/header';
+import { Home } from 'pages/home';
+import { Profile } from 'pages/profile';
 
 import './index.css';
 
 function App() {
-  const { account } = useEthers();
   return (
     <div className="App">
-      <header />
-      <main>
-        <ConnectButton />
-        <div>{account}</div>
-      </main>
+      <Header />
+      <Routes>
+        <Route index path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </div>
   );
 }

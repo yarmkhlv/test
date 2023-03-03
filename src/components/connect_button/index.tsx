@@ -3,7 +3,7 @@ import { useEthers } from '@usedapp/core';
 
 declare global {
   interface Window {
-    ethereum: any;
+    ethereum: unknown;
   }
 }
 
