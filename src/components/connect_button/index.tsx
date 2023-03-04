@@ -23,7 +23,7 @@ export function ConnectButton() {
       <button
         onClick={() => activateBrowserWallet()}
         type="button"
-        className="px-6 pt-2.5 pb-2 mt-4 rounded-3xl bg-bgDefaultBtn text-lg uppercase"
+        className="px-6 pt-2.5 pb-2 mt-4 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase"
       >
         Connect MetaMask
       </button>
