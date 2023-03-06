@@ -15,7 +15,7 @@ function App() {
       <Header account={account} />
       <Routes>
         <Route index path="/" element={<Home account={account} />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:userId" element={<Profile />} />
       </Routes>
     </div>
   );

@@ -22,6 +22,7 @@ module.exports = {
     }),
     fontSize: (theme) => ({
       custom_xss: ['0.7777rem', '128.5%'],
+      custom_table: ['0.875rem', '120%'],
       custom_xs: ['1rem', '120%'],
       custom_s: ['1.125rem', '120%'],
       custom_m: ['1.5rem', '120%'],
