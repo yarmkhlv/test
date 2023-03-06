@@ -8,26 +8,20 @@ declare global {
 }
 
 export function ConnectButton() {
-  const { account, deactivate, activateBrowserWallet } = useEthers();
+  const { activateBrowserWallet } = useEthers();
   const onboarding = new MetaMaskOnboarding();
   const metaMaskCheck = window.ethereum;
   if (metaMaskCheck) {
     onboarding.stopOnboarding();
   }
   return metaMaskCheck ? (
-    account ? (
-      <button onClick={() => deactivate()} type="button">
-        Disconnect
-      </button>
-    ) : (
-      <button
-        onClick={() => activateBrowserWallet()}
-        type="button"
-        className="px-6 pt-2.5 pb-2 mt-4 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase"
-      >
-        Connect MetaMask
-      </button>
-    )
+    <button
+      onClick={() => activateBrowserWallet()}
+      type="button"
+      className="px-6 pt-2.5 pb-2 mt-4 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase"
+    >
+      Connect MetaMask
+    </button>
   ) : (
     <button onClick={() => onboarding.startOnboarding()} type="button">
       Install

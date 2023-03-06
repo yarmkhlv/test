@@ -14,6 +14,8 @@ module.exports = {
     }),
     borderColor: (theme) => ({
       borLogo: '#C7C7C7',
+      inputFocus: 'rgba(231, 86, 38, 1)',
+      inputDisabled: 'rgba(255, 255, 255, 0.25)',
     }),
     textColor: (theme) => ({
       colorAccent: '#E75626',

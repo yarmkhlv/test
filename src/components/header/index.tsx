@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useEthers } from '@usedapp/core';
 
 import { ConnectButton } from 'components/connect_button';
 
-export function Header() {
-  const { account } = useEthers();
+export function Header(props: { account: string | undefined }) {
+  const { account } = props;
   const accAdress = account?.slice(0, 20);
   return (
     <header className="flex justify-between items-start px-16">
@@ -16,7 +15,7 @@ export function Header() {
       </Link>
       {account ? (
         <Link
-          to="/profile"
+          to="/"
           className="pt-[27px] text-custom_s font-bold text-colorAccent"
         >{`${accAdress}...`}</Link>
       ) : (
