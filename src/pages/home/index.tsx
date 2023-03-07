@@ -8,15 +8,19 @@ import { Store, InputEvent } from 'helpers/interfaces';
 import './index.css';
 
 export function Home() {
-  const { username, email, address } = useSelector(
-    (store: Store) => store.user
-  );
+  const {
+    participants,
+    user: { username, email, address },
+  } = useSelector((store: Store) => store);
   const dispatch = useDispatch();
 
   const [betaTestName, setBetaTestName] = useState('');
   const [betaTestEmail, setBetaTestEmail] = useState('');
   const [betaTestCheck, setBetaTestCheck] = useState(Boolean(email));
   const [attrDisabled, setAttrDisabled] = useState(!address);
+  const [disableListMeBtn, setDisableListMeBtn] = useState(
+    participants.find((elem) => elem.id === '322solo')
+  );
 
   const betaTestSubmitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,6 +30,9 @@ export function Home() {
     }
   };
 
+  useEffect(() => {
+    setDisableListMeBtn(participants.find((elem) => elem.id === '322solo'));
+  }, [participants]);
   useEffect(() => {
     setBetaTestCheck(Boolean(email));
   }, [email]);
@@ -105,7 +112,8 @@ export function Home() {
                 {email}
               </div>
               <button
-                className="px-6 pt-2.5 pb-2 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn"
+                disabled={Boolean(disableListMeBtn)}
+                className="px-6 pt-2.5 pb-2 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn disabled:pointer-events-none disabled:opacity-50"
                 type="button"
               >
                 List me to the table
@@ -148,7 +156,7 @@ export function Home() {
               </p>
               <button
                 disabled={attrDisabled}
-                className="px-6 pt-2.5 pb-2 mt-6 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn disabled:opacity-50"
+                className="px-6 pt-2.5 pb-2 mt-6 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn disabled:pointer-events-none disabled:opacity-50"
                 type="submit"
               >
                 Get early access

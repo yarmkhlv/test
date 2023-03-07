@@ -23,7 +23,11 @@ export function ConnectButton() {
       Connect MetaMask
     </button>
   ) : (
-    <button onClick={() => onboarding.startOnboarding()} type="button">
+    <button
+      onClick={() => onboarding.startOnboarding()}
+      type="button"
+      className="px-6 pt-2.5 pb-2 mt-4 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase"
+    >
       Install MetaMask
     </button>
   );
