@@ -3,10 +3,15 @@ interface InputEvent extends React.ChangeEvent<HTMLInputElement> {
 }
 
 interface Participant {
-  address: string;
-  email: string;
-  id: number;
-  username: string;
+  address: string | null;
+  email: string | null;
+  id: string;
+  username: string | null;
 }
 
-export type { InputEvent, Participant };
+interface Store {
+  user: Participant;
+  participants: Participant[];
+}
+
+export type { InputEvent, Participant, Store };

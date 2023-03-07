@@ -1,22 +1,37 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { updateUsername, updateEmail } from 'store_toolkit/user_slice';
 import { ParticipantsBlock } from 'components/participants_block/participants_block';
-
 import { validateForm } from 'helpers/validates';
-import { InputEvent } from 'helpers/interfaces';
+import { Store, InputEvent } from 'helpers/interfaces';
 import './index.css';
 
-export function Home(props: { account: string | undefined }) {
-  const { account } = props;
-  const disable = !account;
+export function Home() {
+  const { username, email, address } = useSelector(
+    (store: Store) => store.user
+  );
+  const dispatch = useDispatch();
+
   const [betaTestName, setBetaTestName] = useState('');
   const [betaTestEmail, setBetaTestEmail] = useState('');
-  const [betaTestCheck, setBetaTestCheck] = useState(false);
+  const [betaTestCheck, setBetaTestCheck] = useState(Boolean(email));
+  const [attrDisabled, setAttrDisabled] = useState(!address);
 
   const betaTestSubmitData = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setBetaTestCheck(validateForm(betaTestName, betaTestEmail));
+    if (validateForm(betaTestName, betaTestEmail)) {
+      dispatch(updateUsername(betaTestName));
+      dispatch(updateEmail(betaTestEmail));
+    }
   };
+
+  useEffect(() => {
+    setBetaTestCheck(Boolean(email));
+  }, [email]);
+  useEffect(() => {
+    setAttrDisabled(Boolean(!address));
+  }, [address]);
 
   return (
     <div className="pt-52 pb-[108px]  px-16">
@@ -83,11 +98,11 @@ export function Home(props: { account: string | undefined }) {
             <div>
               <div className="mb-2 text-custom_m">Name</div>
               <div className="mb-[22px] text-colorAccent text-custom_xl">
-                {betaTestName}
+                {username}
               </div>
               <div className="mb-2 text-custom_m">Email</div>
               <div className="mb-7 text-colorAccent text-custom_xl">
-                {betaTestEmail}
+                {email}
               </div>
               <button
                 className="px-6 pt-2.5 pb-2 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn"
@@ -107,7 +122,7 @@ export function Home(props: { account: string | undefined }) {
                   onInput={(event: InputEvent) =>
                     setBetaTestName(event.target.value)
                   }
-                  disabled={disable}
+                  disabled={attrDisabled}
                   autoComplete="off"
                   placeholder="We will display your name in participation list "
                   className="w-[421px] h-[42px] border rounded-custom_Rad pl-[18px] py-3 bg-[#171719] font-AvenirNextCyr outline-none  focus:border-inputFocus  focus:placeholder-transparent disabled:placeholder:opacity-25 disabled:border-inputDisabled"
@@ -124,7 +139,7 @@ export function Home(props: { account: string | undefined }) {
                     setBetaTestEmail(event.target.value)
                   }
                   autoComplete="off"
-                  disabled={disable}
+                  disabled={attrDisabled}
                   placeholder="We will display your email in participation list "
                   className="w-[421px] h-[42px] border rounded-custom_Rad pl-[18px] py-3 bg-[#171719] font-AvenirNextCyr outline-none focus:border-inputFocus focus:placeholder-transparent disabled:placeholder:opacity-25 disabled:border-inputDisabled"
                   type="email"
@@ -132,7 +147,8 @@ export function Home(props: { account: string | undefined }) {
                 />
               </p>
               <button
-                className="px-6 pt-2.5 pb-2 mt-6 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn"
+                disabled={attrDisabled}
+                className="px-6 pt-2.5 pb-2 mt-6 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn disabled:opacity-50"
                 type="submit"
               >
                 Get early access

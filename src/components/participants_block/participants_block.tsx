@@ -1,9 +1,15 @@
 import useSWR from 'swr';
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { fetcher } from 'helpers/fetcher';
-import { Participant } from 'helpers/interfaces';
+import { Participant, Store } from 'helpers/interfaces';
 import './index.css';
+import {
+  getParticipants,
+  addUserToParticipants,
+  removeUserFromParticipants,
+} from 'store_toolkit/participants_slice';
 
 export function ParticipantsBlock() {
   const { data, error, isLoading } = useSWR(
@@ -11,7 +17,14 @@ export function ParticipantsBlock() {
     fetcher
   );
   const navigate = useNavigate();
-  const listParticipants = data?.items.map((participant: Participant) => (
+  const dispatch = useDispatch();
+  const { participants, user } = useSelector((store: Store) => store);
+  if (data) {
+    console.log('rabotaem');
+    dispatch(getParticipants(data.items));
+    dispatch(addUserToParticipants(user));
+  }
+  const listParticipants = participants.map((participant: Participant) => (
     <tr
       onClick={() => {
         navigate(`/profile/${participant.id}`);
@@ -30,7 +43,6 @@ export function ParticipantsBlock() {
       </td>
     </tr>
   ));
-
   if (error)
     return (
       <div className="max-w-[500px] w-[100%] text-center text-custom_xl">

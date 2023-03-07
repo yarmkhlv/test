@@ -24,7 +24,7 @@ export function ConnectButton() {
     </button>
   ) : (
     <button onClick={() => onboarding.startOnboarding()} type="button">
-      Install
+      Install MetaMask
     </button>
   );
 }
