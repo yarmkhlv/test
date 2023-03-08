@@ -13,6 +13,7 @@ interface Store {
   user: Participant;
   participants: Participant[];
   page: number;
+  modalActive: boolean;
 }
 
 export type { InputEvent, Participant, Store };

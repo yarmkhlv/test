@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
@@ -21,16 +21,18 @@ export function ParticipantsBlock() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { participants, user, page } = useSelector((store: Store) => store);
-  console.log(page);
+
   const { data, error } = useSWR(
     `https://new-backend.unistory.app/api/data?page=${page}&perPage=${perPageReq}`,
     fetcher
   );
-
   useEffect(() => {
     if (data && participants.length < 1) {
       dispatch(getParticipants([user, ...data.items]));
-    } else if (data && page >= 1) {
+    } else if (
+      data &&
+      participants.every((elem) => elem.id !== data.items[0].id)
+    ) {
       dispatch(getParticipants(data.items));
     }
   }, [data, dispatch]);
@@ -38,13 +40,13 @@ export function ParticipantsBlock() {
   const renderList = participants.map((participant: Participant) =>
     participant.id === '322solo' ? (
       <tr className="flex justify-start border-b w-[100%]" key={participant.id}>
-        <td className="w-[167px] mr-[20px] overflow-hidden text-ellipsis py-4 text-custom_table font-AvenirNextCyr">
+        <td className="w-[167px] mr-[20px] overflow-hidden text-ellipsis py-4 text-custom_table font-AvenirNextCyr text-colorAccent">
           {participant.username}
         </td>
-        <td className="block w-[238px] mr-[20px] overflow-hidden text-ellipsis text-custom_table py-4 font-AvenirNextCyr">
+        <td className="block w-[238px] mr-[20px] overflow-hidden text-ellipsis text-custom_table py-4 font-AvenirNextCyr text-colorAccent">
           {participant.email}
         </td>
-        <td className="w-[214px] pr-[19px] overflow-hidden text-ellipsis  text-custom_table py-4 font-AvenirNextCyr">
+        <td className="w-[214px] pr-[19px] overflow-hidden text-ellipsis  text-custom_table py-4 font-AvenirNextCyr text-colorAccent">
           {participant.address}
         </td>
         <td className="flex items-center">
