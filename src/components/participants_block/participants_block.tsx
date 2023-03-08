@@ -1,7 +1,8 @@
 import useSWR from 'swr';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import { fetcher } from 'helpers/fetcher';
 import { Participant, Store } from 'helpers/interfaces';
@@ -14,6 +15,7 @@ import {
 import { increasePage } from 'store_toolkit/page_slice';
 
 const perPageReq = 20;
+const maxPage = 49;
 
 export function ParticipantsBlock() {
   const navigate = useNavigate();
@@ -105,18 +107,24 @@ export function ParticipantsBlock() {
             </tr>
           </thead>
         </table>
-        <div
-          className="max-h-[550px] overflow-auto scroll"
-          onScroll={(event) => {
-            const elem = event.currentTarget;
-            console.log(elem);
-            const scrolledHeight = elem.scrollTop + elem.clientHeight;
-            const totalHeight = elem.scrollHeight;
-          }}
-        >
-          <table className="w-[668px] mr-[27px]">
-            <tbody>{renderList}</tbody>
-          </table>
+        <div className=" max-h-[550px] overflow-auto scroll" id="forScroll">
+          <InfiniteScroll
+            scrollableTarget="forScroll"
+            next={() => {
+              if (page < maxPage) dispatch(increasePage());
+            }}
+            hasMore
+            loader={
+              <div className="max-w-[500px] w-[100%] text-center text-custom_xl">
+                Loading...
+              </div>
+            }
+            dataLength={renderList.length}
+          >
+            <table className="w-[668px] mr-[27px]">
+              <tbody>{renderList}</tbody>
+            </table>
+          </InfiniteScroll>
         </div>
       </div>
     );
