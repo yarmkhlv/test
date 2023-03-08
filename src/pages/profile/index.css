@@ -1,17 +1,17 @@
 .multi-bg {
-  background-image: url('./../../assets/img/planet_slice/planet.png'),
-    url('./../../assets/img/planet_slice/dot.png'),
-    url('./../../assets/img/planet_slice/dot.png'),
-    url('./../../assets/img/planet_slice/ellipse6.png'),
-    url('./../../assets/img/planet_slice/ellipse3.png'),
-    url('./../../assets/img/planet_slice/ellipse2.png'),
-    url('./../../assets/img/planet_slice/ellipse1.png'),
-    url('./../../assets/img/planet_slice/ellipse5.png'),
-    url('./../../assets/img/planet_slice/ellipse4.png');
+  background-image: url('./../../assets/img/planet_full/planet.png'),
+    url('./../../assets/img/planet_full/dot.png'),
+    url('./../../assets/img/planet_full/dot.png'),
+    url('./../../assets/img/planet_full/ellipse6.png'),
+    url('./../../assets/img/planet_full/ellipse3.png'),
+    url('./../../assets/img/planet_full/ellipse2.png'),
+    url('./../../assets/img/planet_full/ellipse1.png'),
+    url('./../../assets/img/planet_full/ellipse5.png'),
+    url('./../../assets/img/planet_full/ellipse4.png');
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
     no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: center, 50% 3.9%, 50% 96.3%, 92% center, center, center,
-    center, center, center;
+  background-position: center, center, center, center, center, center, center,
+    center, center;
 }
 
 .pos-abs-coord {
