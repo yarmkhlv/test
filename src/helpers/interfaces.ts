@@ -12,6 +12,7 @@ interface Participant {
 interface Store {
   user: Participant;
   participants: Participant[];
+  page: number;
 }
 
 export type { InputEvent, Participant, Store };

@@ -10,10 +10,10 @@ const participantsSlice = createSlice({
       return [...state, ...action.payload];
     },
     addUserToParticipants(state, action) {
-      return [...state, action.payload];
+      return [action.payload, ...state];
     },
     removeUserFromParticipants(state, action) {
-      return state.filter((member) => member !== action.payload);
+      return state.filter((member) => member.id !== action.payload);
     },
   },
 });

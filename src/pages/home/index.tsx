@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { updateUsername, updateEmail } from 'store_toolkit/user_slice';
 import { ParticipantsBlock } from 'components/participants_block/participants_block';
+import { addUserToParticipants } from 'store_toolkit/participants_slice';
 import { validateForm } from 'helpers/validates';
+import { checkUserInList } from 'helpers/check_user_in_list';
 import { Store, InputEvent } from 'helpers/interfaces';
 import './index.css';
 
 export function Home() {
-  const {
-    participants,
-    user: { username, email, address },
-  } = useSelector((store: Store) => store);
+  const { participants, user } = useSelector((store: Store) => store);
+  const { username, email, address } = user;
   const dispatch = useDispatch();
 
   const [betaTestName, setBetaTestName] = useState('');
@@ -19,7 +19,7 @@ export function Home() {
   const [betaTestCheck, setBetaTestCheck] = useState(Boolean(email));
   const [attrDisabled, setAttrDisabled] = useState(!address);
   const [disableListMeBtn, setDisableListMeBtn] = useState(
-    participants.find((elem) => elem.id === '322solo')
+    checkUserInList(participants, '322solo')
   );
 
   const betaTestSubmitData = (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +31,7 @@ export function Home() {
   };
 
   useEffect(() => {
-    setDisableListMeBtn(participants.find((elem) => elem.id === '322solo'));
+    setDisableListMeBtn(checkUserInList(participants, '322solo'));
   }, [participants]);
   useEffect(() => {
     setBetaTestCheck(Boolean(email));
@@ -112,6 +112,9 @@ export function Home() {
                 {email}
               </div>
               <button
+                onClick={() => {
+                  dispatch(addUserToParticipants(user));
+                }}
                 disabled={Boolean(disableListMeBtn)}
                 className="px-6 pt-2.5 pb-2 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn disabled:pointer-events-none disabled:opacity-50"
                 type="button"

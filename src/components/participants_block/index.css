@@ -1,2 +1,26 @@
 .scroll::-webkit-scrollbar {
 }
+.btn-del-participant {
+  position: relative;
+  display: block;
+  border: none;
+  height: 10px;
+  width: 10px;
+  background-color: transparent;
+}
+.btn-del-participant::after,
+.btn-del-participant::before {
+  position: absolute;
+  content: '';
+  display: block;
+  width: 10px;
+  height: 1px;
+  background-color: #fff;
+  border-radius: 1px;
+}
+.btn-del-participant::after {
+  transform: rotate(-45deg);
+}
+.btn-del-participant::before {
+  transform: rotate(45deg);
+}
