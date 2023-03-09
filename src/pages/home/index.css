@@ -1,4 +1,36 @@
 .transp-and-stroke {
-  -webkit-text-fill-color: transparent;
+  -webkit-text-fill-color: black;
   -webkit-text-stroke: 1px #fff;
+}
+
+.multi-bg_custom_full {
+  background-image: url('./../../assets/img/planet_full/planet.png'),
+    url('./../../assets/img/planet_full/dot.png'),
+    url('./../../assets/img/planet_full/dot.png'),
+    url('./../../assets/img/planet_full/ellipse6.png'),
+    url('./../../assets/img/planet_full/ellipse3.png'),
+    url('./../../assets/img/planet_full/ellipse2.png'),
+    url('./../../assets/img/planet_full/ellipse1.png'),
+    url('./../../assets/img/planet_full/ellipse5.png'),
+    url('./../../assets/img/planet_full/ellipse4.png');
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 728px 178px, 1128px 340px, 885px 580px, 888px 96px,
+    703px 153px, 696px 146px, 665px 115px, 600px 50px, 622px 72px;
+}
+
+.custom-text-filter {
+  background: url('./../../assets/img/planet_full/filter.png') 0 0 / cover;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 320px;
+  background-position: 663px -30px;
+  color: #fff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.shadow {
+  box-shadow: -2px -2px 6px rgba(50, 50, 50, 0.25),
+    2px 2px 6px rgba(50, 50, 50, 0.25);
 }

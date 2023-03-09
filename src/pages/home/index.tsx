@@ -41,19 +41,22 @@ export function Home() {
   }, [address]);
 
   return (
-    <div className="pt-52 pb-[108px]  px-16">
+    <div className="multi-bg_custom_full pt-52 pb-[108px]  px-16">
       <div className="relative flex justify-between align-top gap-x-[106px]">
         <div>
-          <div className="text-custom_xlll font-bold">
-            Explore Your own planet
-            <br />
-            In <span className="transp-and-stroke">our New</span> metaverse
+          <div className="max-w-[1007px] text-custom_xlll font-bold custom-text-filter">
+            Explore Your own planet In{' '}
+            <span className="transp-and-stroke">our New</span> metaverse
           </div>
           <div className="w-[421px] font-AvenirNextCyr">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
+          </div>
+          <div className="absolute top-[-126px] right-[473px] w-[80px] h-[30px] bg-[#fff] text-[black] py-2 pl-[12px] rounded-[15px]">
+            <div className="font-bold text-custom_table">Q1 2022</div>
+            <div className="w-[12px] h-[12px] absolute top-[9px] right-[12px] bg-bgDefaultBtn rounded-[50%] border-[3px] border-[white] shadow" />
           </div>
         </div>
 

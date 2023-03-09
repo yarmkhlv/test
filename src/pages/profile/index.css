@@ -1,4 +1,4 @@
-.multi-bg {
+.multi-bg_custom {
   background-image: url('./../../assets/img/planet_full/planet.png'),
     url('./../../assets/img/planet_full/dot.png'),
     url('./../../assets/img/planet_full/dot.png'),
@@ -10,12 +10,14 @@
     url('./../../assets/img/planet_full/ellipse4.png');
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
     no-repeat, no-repeat, no-repeat, no-repeat;
-  background-position: center, center, center, center, center, center, center,
-    center, center;
+  background-position: center center, 54% 4%, 54% 96%, right center,
+    center center, center center, center center, center center, center center;
 }
 
-.pos-abs-coord {
-  position: absolute;
-  top: -50px;
-  right: -210px;
+.coord_custom {
+  z-index: -1;
+  width: 532px;
+  height: 532px;
+  top: 160px;
+  right: -200px;
 }
