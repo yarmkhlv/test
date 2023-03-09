@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Bebas Neue';
+  font-weight: 400;
+  src: url('./bebasneue/bebasneueregular.woff2') format('woff2'),
+    url('./bebasneue/bebasneueregular.woff') format('woff'),
+    url('./bebasneue/bebasneueregular.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  font-weight: 700;
+  src: url('./bebasneue/bebasneuebold.woff2') format('woff2'),
+    url('./bebasneue/bebasneuebold.woff') format('woff'),
+    url('./bebasneue/bebasneuebold.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Avenir Next Cyr';
+  font-weight: 400;
+  src: url('./avenirextcyr/AvenirNextCyr-Regular.woff') format('woff'),
+    url('./avenirextcyr/AvenirNextCyr-Regular.woff') format('ttf');
+}
