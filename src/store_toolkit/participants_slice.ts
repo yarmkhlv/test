@@ -6,10 +6,13 @@ const participantsSlice = createSlice({
   name: 'participants',
   initialState: [] as Participant[],
   reducers: {
-    getParticipants(state, action) {
+    getParticipants(state, action: { type: string; payload: Participant[] }) {
       return [...state, ...action.payload];
     },
-    addUserToParticipants(state, action) {
+    addUserToParticipants(
+      state,
+      action: { type: string; payload: Participant }
+    ) {
       return [action.payload, ...state];
     },
     removeUserFromParticipants(state, action) {

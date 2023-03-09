@@ -2,24 +2,28 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { updateUsername, updateEmail } from 'store_toolkit/user_slice';
-import { ParticipantsBlock } from 'components/participants_block/participants_block';
 import { addUserToParticipants } from 'store_toolkit/participants_slice';
+import { changeShowList } from 'store_toolkit/show_list';
+
+import { ParticipantsBlock } from 'components/participants_block/participants_block';
+
 import { validateForm } from 'helpers/validates';
 import { checkUserInList } from 'helpers/check_user_in_list';
 import { Store, InputEvent } from 'helpers/interfaces';
+
 import './index.css';
+import { staticIdForUser } from 'helpers/const';
 
 export function Home() {
-  const { participants, user } = useSelector((store: Store) => store);
+  const { participants, user, showList } = useSelector((store: Store) => store);
   const { username, email, address } = user;
   const dispatch = useDispatch();
 
   const [betaTestName, setBetaTestName] = useState('');
   const [betaTestEmail, setBetaTestEmail] = useState('');
-  const [betaTestCheck, setBetaTestCheck] = useState(Boolean(email));
   const [attrDisabled, setAttrDisabled] = useState(!address);
-  const [disableListMeBtn, setDisableListMeBtn] = useState(
-    checkUserInList(participants, '322solo')
+  const [checkParticipant, setCheckParticipant] = useState(
+    checkUserInList(participants, staticIdForUser)
   );
 
   const betaTestSubmitData = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,15 +31,28 @@ export function Home() {
     if (validateForm(betaTestName, betaTestEmail)) {
       dispatch(updateUsername(betaTestName));
       dispatch(updateEmail(betaTestEmail));
+      if (!showList) {
+        dispatch(changeShowList());
+      }
     }
+  };
+  const reRegistration = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(updateUsername(betaTestName));
+    dispatch(updateEmail(betaTestEmail));
+    dispatch(
+      addUserToParticipants({
+        username: betaTestName,
+        email: betaTestEmail,
+        id: staticIdForUser,
+        address,
+      })
+    );
   };
 
   useEffect(() => {
-    setDisableListMeBtn(checkUserInList(participants, '322solo'));
+    setCheckParticipant(checkUserInList(participants, staticIdForUser));
   }, [participants]);
-  useEffect(() => {
-    setBetaTestCheck(Boolean(email));
-  }, [email]);
   useEffect(() => {
     setAttrDisabled(Boolean(!address));
   }, [address]);
@@ -105,23 +122,67 @@ export function Home() {
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.{' '}
           </p>
-          {betaTestCheck ? (
+          {showList ? (
             <div>
-              <div className="mb-2 text-custom_m">Name</div>
-              <div className="mb-[22px] text-colorAccent text-custom_xl">
-                {username}
-              </div>
-              <div className="mb-2 text-custom_m">Email</div>
-              <div className="mb-7 text-colorAccent text-custom_xl">
-                {email}
-              </div>
+              {checkParticipant ? (
+                <div>
+                  <div className="mb-2 text-custom_m">Name</div>
+                  <div className="mb-[22px] text-colorAccent text-custom_xl">
+                    {username}
+                  </div>
+                  <div className="mb-2 text-custom_m">Email</div>
+                  <div className=" text-colorAccent text-custom_xl">
+                    {email}
+                  </div>
+                </div>
+              ) : (
+                <form
+                  id="reRegistration"
+                  onSubmit={(event) => reRegistration(event)}
+                >
+                  <p>
+                    <label
+                      className="block mb-2 text-custom_m"
+                      htmlFor="firstName"
+                    >
+                      Name
+                    </label>
+
+                    <input
+                      onInput={(event: InputEvent) =>
+                        setBetaTestName(event.target.value)
+                      }
+                      disabled={attrDisabled}
+                      autoComplete="off"
+                      placeholder="We will display your name in participation list "
+                      className="w-[421px] h-[42px] border rounded-custom_Rad pl-[18px] py-3 bg-[#171719] font-AvenirNextCyr outline-none  focus:border-inputFocus  focus:placeholder-transparent disabled:placeholder:opacity-25 disabled:border-inputDisabled"
+                      type="text"
+                      id="firstName"
+                    />
+                  </p>
+                  <p className="mt-[22px]">
+                    <label className="block mb-2 text-custom_m" htmlFor="email">
+                      Email
+                    </label>
+                    <input
+                      onInput={(event: InputEvent) =>
+                        setBetaTestEmail(event.target.value)
+                      }
+                      autoComplete="off"
+                      disabled={attrDisabled}
+                      placeholder="We will display your email in participation list "
+                      className="w-[421px] h-[42px] border rounded-custom_Rad pl-[18px] py-3 bg-[#171719] font-AvenirNextCyr outline-none focus:border-inputFocus focus:placeholder-transparent disabled:placeholder:opacity-25 disabled:border-inputDisabled"
+                      type="email"
+                      id="email"
+                    />
+                  </p>
+                </form>
+              )}
               <button
-                onClick={() => {
-                  dispatch(addUserToParticipants(user));
-                }}
-                disabled={Boolean(disableListMeBtn)}
-                className="px-6 pt-2.5 pb-2 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn disabled:pointer-events-none disabled:opacity-50"
-                type="button"
+                form="reRegistration"
+                disabled={Boolean(checkParticipant)}
+                className="mt-7 px-6 pt-2.5 pb-2 rounded-custom_Rad bg-bgDefaultBtn text-custom_s font-bold uppercase hover:bg-bgHoverBtn disabled:pointer-events-none disabled:opacity-50"
+                type="submit"
               >
                 List me to the table
               </button>
@@ -132,7 +193,7 @@ export function Home() {
                 <label className="block mb-2 text-custom_m" htmlFor="firstName">
                   Name
                 </label>
-                <br />
+
                 <input
                   onInput={(event: InputEvent) =>
                     setBetaTestName(event.target.value)
@@ -145,7 +206,7 @@ export function Home() {
                   id="firstName"
                 />
               </p>
-              <p className="mt-[18px]">
+              <p className="mt-[22px]">
                 <label className="block mb-2 text-custom_m" htmlFor="email">
                   Email
                 </label>
@@ -171,7 +232,7 @@ export function Home() {
             </form>
           )}
         </div>
-        {betaTestCheck ? <ParticipantsBlock /> : null}
+        {showList ? <ParticipantsBlock /> : null}
       </div>
     </div>
   );

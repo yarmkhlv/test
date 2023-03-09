@@ -4,18 +4,16 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import { fetcher } from 'helpers/fetcher';
-import { Participant, Store } from 'helpers/interfaces';
-import './index.css';
-
 import {
   getParticipants,
   removeUserFromParticipants,
 } from 'store_toolkit/participants_slice';
 import { increasePage } from 'store_toolkit/page_slice';
 
-const perPageReq = 20;
-const maxPage = 49;
+import { fetcher } from 'helpers/fetcher';
+import { Participant, Store } from 'helpers/interfaces';
+import { paramRequest } from 'helpers/const';
+import './index.css';
 
 export function ParticipantsBlock() {
   const navigate = useNavigate();
@@ -23,7 +21,7 @@ export function ParticipantsBlock() {
   const { participants, user, page } = useSelector((store: Store) => store);
 
   const { data, error } = useSWR(
-    `https://new-backend.unistory.app/api/data?page=${page}&perPage=${perPageReq}`,
+    `https://new-backend.unistory.app/api/data?page=${page}&perPage=${paramRequest.perPage}`,
     fetcher
   );
   useEffect(() => {
@@ -65,7 +63,7 @@ export function ParticipantsBlock() {
         onClick={() => {
           navigate(`/profile/${participant.id}`);
         }}
-        className="flex justify-start border-b w-[100%]"
+        className="flex justify-start border-b w-[100%] cursor-pointer hover:bg-[#353544]"
         key={participant.id}
       >
         <td className="w-[167px] mr-[20px] overflow-hidden text-ellipsis py-4 text-custom_table font-AvenirNextCyr">
@@ -113,7 +111,7 @@ export function ParticipantsBlock() {
           <InfiniteScroll
             scrollableTarget="forScroll"
             next={() => {
-              if (page < maxPage) dispatch(increasePage());
+              if (page < paramRequest.maxPage) dispatch(increasePage());
             }}
             hasMore
             loader={

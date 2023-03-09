@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import { Participant } from 'helpers/interfaces';
+import { staticIdForUser } from 'helpers/const';
 
 const userSlice = createSlice({
   name: 'user',
@@ -9,7 +10,7 @@ const userSlice = createSlice({
     username: null,
     email: null,
     address: null,
-    id: '322solo',
+    id: staticIdForUser,
   } as Participant,
   reducers: {
     updateUsername(state, action) {
