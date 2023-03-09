@@ -54,14 +54,15 @@ export function Home() {
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.
           </div>
-          <div className="absolute top-[-126px] right-[473px] w-[80px] h-[30px] bg-[#fff] text-[black] py-2 pl-[12px] rounded-[15px]">
-            <div className="font-bold text-custom_table">Q1 2022</div>
-            <div className="w-[12px] h-[12px] absolute top-[9px] right-[12px] bg-bgDefaultBtn rounded-[50%] border-[3px] border-[white] shadow" />
-          </div>
+        </div>
+
+        <div className="absolute top-[-126px] right-[473px] w-[80px] h-[30px] bg-[#fff] text-[#171719] py-2 pl-[12px] rounded-[15px]">
+          <div className="font-bold text-custom_table">Q1 2022</div>
+          <div className="w-[12px] h-[12px] absolute top-[9px] right-[12px] bg-bgDefaultBtn rounded-[50%] border-[3px] border-[white] shadow" />
         </div>
 
         <div className="flex-column justify-center mt-[17px]">
-          <div className="px-[15px] mb-[42px] text-custom_xl font-bold tracking-[1px]">
+          <div className="px-[14px] mb-[42px] text-custom_xl font-bold tracking-[1px]">
             Roadmap stats
           </div>
           <div className="flex-column">
